@@ -12,13 +12,13 @@
       "destination": "/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/$1"
+      "source": "/:path*",
+      "destination": "/:path*"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "/:path*",
       "headers": [
         {
           "key": "X-Content-Type-Options",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "source": "/(.*\\.(jpg|jpeg|png|webp|gif))",
+      "source": "/:path*.(jpg|jpeg|png|webp|gif)",
       "headers": [
         {
           "key": "Cache-Control",
