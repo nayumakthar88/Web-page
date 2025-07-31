@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tips & Wellness Guide - Medical Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('f1 bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #007BFF;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+            margin: 0;
+        }
+        
+        .tips-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .category-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .category-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+        
+        .category-title {
+            color: #007BFF;
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        .tips-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .tips-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .tips-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .tip-icon {
+            color: #28a745;
+            font-size: 1.2em;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+        
+        .tip-content {
+            flex: 1;
+        }
+        
+        .tip-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .tip-description {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .daily-tips {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .daily-tips h2 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .daily-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .daily-tip {
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .daily-tip h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .daily-tip p {
+            margin: 0;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        .emergency-tips {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .emergency-tips h2 {
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .emergency-tip {
+            background: #fff5f5;
+            border: 2px solid #dc3545;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .emergency-tip h4 {
+            color: #dc3545;
+            margin: 0 0 10px 0;
+        }
+        
+        .emergency-tip p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .seasonal-tips {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .seasonal-tips h2 {
+            color: #007BFF;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .season-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .season-tab {
+            padding: 10px 20px;
+            margin: 5px;
+            border: 2px solid #007BFF;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            color: #007BFF;
+        }
+        
+        .season-tab.active {
+            background: #007BFF;
+            color: white;
+        }
+        
+        .season-content {
+            display: none;
+        }
+        
+        .season-content.active {
+            display: block;
+        }
+        
+        .season-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .season-tip {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007BFF;
+        }
+        
+        .season-tip h4 {
+            color: #007BFF;
+            margin: 0 0 8px 0;
+        }
+        
+        .season-tip p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media (max-width: 768px) {
+            .tips-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .daily-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .emergency-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌿 Health Tips & Wellness Guide</h1>
+            <p>Comprehensive health advice for a better lifestyle</p>
+        </div>
+
+        <!-- Daily Health Tips -->
+        <div class="daily-tips">
+            <h2>💡 Daily Health Essentials</h2>
+            <div class="daily-grid">
+                <div class="daily-tip">
+                    <h4>Stay Hydrated</h4>
+                    <p>Drink 8-10 glasses of water daily to maintain proper hydration and support bodily functions.</p>
+                </div>
+                <div class="daily-tip">
+                    <h4>Get Enough Sleep</h4>
+                    <p>Aim for 7-9 hours of quality sleep each night to support immune function and mental health.</p>
+                </div>
+                <div class="daily-tip">
+                    <h4>Practice Good Hygiene</h4>
+                    <p>Wash hands frequently, especially before meals and after using the restroom.</p>
+                </div>
+                <div class="daily-tip">
+                    <h4>Take Regular Breaks</h4>
+                    <p>Take short breaks every hour when working to reduce eye strain and improve productivity.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Categories -->
+        <div class="tips-categories">
+            <!-- Nutrition -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🥗</span>
+                    <h3 class="category-title">Nutrition & Diet</h3>
+                </div>
+                <ul class="tips-list">
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Eat a Rainbow</div>
+                            <div class="tip-description">Include colorful fruits and vegetables in your diet for essential vitamins and antioxidants.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Choose Whole Grains</div>
+                            <div class="tip-description">Opt for whole grains over refined grains for better fiber content and sustained energy.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Limit Processed Foods</div>
+                            <div class="tip-description">Reduce intake of processed foods high in salt, sugar, and unhealthy fats.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Practice Portion Control</div>
+                            <div class="tip-description">Use smaller plates and be mindful of portion sizes to maintain healthy weight.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Include Protein</div>
+                            <div class="tip-description">Consume lean proteins like fish, chicken, beans, and legumes for muscle health.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Exercise -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🏃‍♂️</span>
+                    <h3 class="category-title">Physical Activity</h3>
+                </div>
+                <ul class="tips-list">
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Aim for 150 Minutes Weekly</div>
+                            <div class="tip-description">Get at least 150 minutes of moderate aerobic activity or 75 minutes of vigorous activity per week.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Strength Training</div>
+                            <div class="tip-description">Include muscle-strengthening activities 2-3 times per week for bone health.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Stay Active Throughout Day</div>
+                            <div class="tip-description">Take stairs instead of elevators, walk short distances, and stand while working.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Find Activities You Enjoy</div>
+                            <div class="tip-description">Choose exercises you love - dancing, swimming, cycling, or team sports.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Stretch Regularly</div>
+                            <div class="tip-description">Include stretching exercises to improve flexibility and prevent injuries.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Mental Health -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🧠</span>
+                    <h3 class="category-title">Mental Wellness</h3>
+                </div>
+                <ul class="tips-list">
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Practice Mindfulness</div>
+                            <div class="tip-description">Spend 10-15 minutes daily on meditation or deep breathing exercises.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Stay Connected</div>
+                            <div class="tip-description">Maintain social connections with family and friends for emotional support.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Limit Screen Time</div>
+                            <div class="tip-description">Reduce time on social media and digital devices to improve mental health.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Seek Professional Help</div>
+                            <div class="tip-description">Don't hesitate to consult mental health professionals when needed.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Practice Gratitude</div>
+                            <div class="tip-description">Keep a gratitude journal to focus on positive aspects of life.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Preventive Care -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🩺</span>
+                    <h3 class="category-title">Preventive Healthcare</h3>
+                </div>
+                <ul class="tips-list">
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Regular Check-ups</div>
+                            <div class="tip-description">Schedule annual physical examinations and age-appropriate screenings.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Monitor Vital Signs</div>
+                            <div class="tip-description">Keep track of blood pressure, blood sugar, and cholesterol levels regularly.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Stay Vaccinated</div>
+                            <div class="tip-description">Keep vaccinations up to date, including flu shots and COVID-19 boosters.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Dental Care</div>
+                            <div class="tip-description">Visit dentist every 6 months and maintain good oral hygiene.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Skin Protection</div>
+                            <div class="tip-description">Use sunscreen daily and get regular skin cancer screenings.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Lifestyle -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">🌱</span>
+                    <h3 class="category-title">Healthy Lifestyle</h3>
+                </div>
+                <ul class="tips-list">
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Quit Smoking</div>
+                            <div class="tip-description">Avoid tobacco products and seek help to quit if you're a smoker.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Limit Alcohol</div>
+                            <div class="tip-description">Consume alcohol in moderation - maximum 1-2 drinks per day for adults.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Manage Stress</div>
+                            <div class="tip-description">Practice stress management techniques like yoga, meditation, or hobbies.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Maintain Healthy Weight</div>
+                            <div class="tip-description">Achieve and maintain a healthy weight through diet and exercise.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Quality Sleep</div>
+                            <div class="tip-description">Create a sleep-friendly environment and maintain consistent sleep schedule.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Women's Health -->
+            <div class="category-card">
+                <div class="category-header">
+                    <span class="category-icon">👩‍⚕️</span>
+                    <h3 class="category-title">Women's Health</h3>
+                </div>
+                <ul class="tips-list">
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Regular Mammograms</div>
+                            <div class="tip-description">Women 40+ should get annual mammograms for early breast cancer detection.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Pap Smears</div>
+                            <div class="tip-description">Regular cervical cancer screenings starting at age 21.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Bone Health</div>
+                            <div class="tip-description">Ensure adequate calcium and vitamin D intake for strong bones.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Pregnancy Care</div>
+                            <div class="tip-description">Regular prenatal care and folic acid supplementation during pregnancy.</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="tip-icon">✓</span>
+                        <div class="tip-content">
+                            <div class="tip-title">Menopause Management</div>
+                            <div class="tip-description">Discuss symptoms and treatment options with healthcare providers.</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Emergency Health Tips -->
+        <div class="emergency-tips">
+            <h2>🚨 Emergency Health Tips</h2>
+            <div class="emergency-grid">
+                <div class="emergency-tip">
+                    <h4>Heart Attack Symptoms</h4>
+                    <p>Chest pain, shortness of breath, nausea, lightheadedness. Call emergency services immediately if you experience these symptoms.</p>
+                </div>
+                <div class="emergency-tip">
+                    <h4>Stroke Signs (FAST)</h4>
+                    <p>Face drooping, Arm weakness, Speech difficulty, Time to call emergency. Every minute counts in stroke treatment.</p>
+                </div>
+                <div class="emergency-tip">
+                    <h4>Severe Allergic Reaction</h4>
+                    <p>Difficulty breathing, swelling of face/throat, rapid heartbeat. Use epinephrine if prescribed and seek immediate medical help.</p>
+                </div>
+                <div class="emergency-tip">
+                    <h4>High Fever</h4>
+                    <p>Fever above 103°F (39.4°C) in adults or 100.4°F (38°C) in infants requires immediate medical attention.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seasonal Health Tips -->
+        <div class="seasonal-tips">
+            <h2>🌤️ Seasonal Health Tips</h2>
+            <div class="season-tabs">
+                <div class="season-tab active" onclick="showSeason('summer')">Summer</div>
+                <div class="season-tab" onclick="showSeason('monsoon')">Monsoon</div>
+                <div class="season-tab" onclick="showSeason('winter')">Winter</div>
+                <div class="season-tab" onclick="showSeason('spring')">Spring</div>
+            </div>
+            
+            <div id="summer" class="season-content active">
+                <div class="season-tips-grid">
+                    <div class="season-tip">
+                        <h4>Stay Hydrated</h4>
+                        <p>Drink plenty of water and electrolyte-rich fluids to prevent dehydration.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Sun Protection</h4>
+                        <p>Use sunscreen with SPF 30+, wear protective clothing, and avoid peak sun hours.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Light Meals</h4>
+                        <p>Eat light, easily digestible meals and include cooling foods like cucumber and watermelon.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Indoor Activities</h4>
+                        <p>Exercise indoors during peak heat hours and maintain proper ventilation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="monsoon" class="season-content">
+                <div class="season-tips-grid">
+                    <div class="season-tip">
+                        <h4>Prevent Infections</h4>
+                        <p>Maintain good hygiene, avoid street food, and drink boiled or filtered water.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Mosquito Protection</h4>
+                        <p>Use mosquito repellents, wear long sleeves, and eliminate standing water.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Boost Immunity</h4>
+                        <p>Include vitamin C-rich foods and maintain a healthy diet to strengthen immunity.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Foot Care</h4>
+                        <p>Keep feet dry, wear waterproof footwear, and treat fungal infections promptly.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="winter" class="season-content">
+                <div class="season-tips-grid">
+                    <div class="season-tip">
+                        <h4>Stay Warm</h4>
+                        <p>Layer clothing, keep home warm, and protect extremities from cold.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Moisturize Skin</h4>
+                        <p>Use moisturizers regularly to prevent dry skin and apply lip balm.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Warm Foods</h4>
+                        <p>Include warm soups, herbal teas, and seasonal vegetables in your diet.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Indoor Exercise</h4>
+                        <p>Continue physical activity indoors and maintain regular exercise routine.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="spring" class="season-content">
+                <div class="season-tips-grid">
+                    <div class="season-tip">
+                        <h4>Allergy Management</h4>
+                        <p>Take allergy medications as prescribed and avoid outdoor activities during high pollen times.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Spring Cleaning</h4>
+                        <p>Clean home thoroughly to remove allergens and improve indoor air quality.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Fresh Produce</h4>
+                        <p>Include fresh spring vegetables and fruits in your diet for better nutrition.</p>
+                    </div>
+                    <div class="season-tip">
+                        <h4>Outdoor Activities</h4>
+                        <p>Enjoy moderate outdoor activities and gradually increase physical activity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSeason(season) {
+            // Hide all season contents
+            document.querySelectorAll('.season-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.season-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected season content
+            document.getElementById(season).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>

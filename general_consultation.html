@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Consultation</title>
+    <script>
+        function changeImageOnHover(element, newSrc, originalSrc) {
+            element.src = newSrc;
+            element.dataset.originalSrc = originalSrc; // Store the original src
+        }
+
+        function restoreImage(element) {
+            element.src = element.dataset.originalSrc; // Restore the original src
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>General Consultation</h1>
+    </header>
+    <main>
+        <section>
+            <img 
+                id="Image" 
+                src="john.jpg" 
+                alt="Dr. John Doe" 
+                width="200" 
+                height="200" 
+                onmouseover="changeImageOnHover(this 'john.jpg')" 
+                onmouseout="restoreImage(this)"
+            >
+            <h2>Dr. John Doe</h2>
+            <p>
+                Dr. John Doe is a general practitioner with over 15 years of experience in family medicine. 
+                He is known for his patient-centered approach and excellent diagnostic skills, ensuring 
+                personalized care for every patient.
+            </p>
+        </section>
+        <section>
+            <img 
+                id="arithraImage" 
+                src="arithra-saha.jpg" 
+                alt="Dr. Arithra Saha" 
+                width="200" 
+                height="200" 
+                onmouseover="changeImageOnHover(this, 'hover-arithra.jpg', 'arithra-saha.jpg')" 
+                onmouseout="restoreImage(this)"
+            >
+            <h2>Dr. Arithra Saha</h2>
+            <p>
+                Dr. Arithra Saha is an experienced physician specializing in internal medicine. 
+                With a focus on preventive care and chronic disease management, she is dedicated to improving 
+                the overall health of her patients.
+            </p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 General Consultation Services. All rights reserved.</p>
+    </footer>
+</body>
+</html>

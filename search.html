@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Medical Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: url('f1 bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            color: #007BFF;
+            font-size: 2.5em;
+            margin: 0 0 10px 0;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+            margin: 0;
+        }
+        
+        .search-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .search-sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+        
+        .search-main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .search-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .search-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #666;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .search-tab.active {
+            color: #007BFF;
+            border-bottom-color: #007BFF;
+            font-weight: bold;
+        }
+        
+        .search-content {
+            display: none;
+        }
+        
+        .search-content.active {
+            display: block;
+        }
+        
+        .search-form {
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            width: 100%;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .results-section {
+            margin-top: 25px;
+        }
+        
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .results-count {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .filter-options {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 5px 12px;
+            border: 1px solid #007BFF;
+            background: white;
+            color: #007BFF;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn.active {
+            background: #007BFF;
+            color: white;
+        }
+        
+        .result-card {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .result-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007BFF;
+            margin: 0;
+        }
+        
+        .result-type {
+            background: #e3f2fd;
+            color: #007BFF;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .result-details {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .result-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+        
+        .result-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #007BFF;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        
+        .btn-secondary:hover {
+            background: #545b62;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        
+        .no-results-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+        
+        .quick-search {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .quick-search h3 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .quick-link {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .quick-link:hover {
+            border-color: #007BFF;
+            background: #e3f2fd;
+            transform: translateY(-2px);
+        }
+        
+        .quick-link-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .search-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .search-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .filter-options {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Search Medical Services</h1>
+            <p>Find doctors, departments, appointments, and health information</p>
+        </div>
+        
+        <!-- Quick Search Links -->
+        <div class="quick-search">
+            <h3>Quick Access</h3>
+            <div class="quick-links">
+                <a href="#" class="quick-link" onclick="showSearchTab('doctors')">
+                    <span class="quick-link-icon">👨‍⚕️</span>
+                    <strong>Find Doctors</strong>
+                </a>
+                <a href="#" class="quick-link" onclick="showSearchTab('departments')">
+                    <span class="quick-link-icon">🏥</span>
+                    <strong>Departments</strong>
+                </a>
+                <a href="#" class="quick-link" onclick="showSearchTab('appointments')">
+                    <span class="quick-link-icon">📅</span>
+                    <strong>Appointments</strong>
+                </a>
+                <a href="#" class="quick-link" onclick="showSearchTab('health')">
+                    <span class="quick-link-icon">💊</span>
+                    <strong>Health Info</strong>
+                </a>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <!-- Search Sidebar -->
+            <div class="search-sidebar">
+                <h3 style="color: #007BFF; margin-bottom: 20px;">Search Options</h3>
+                
+                <div class="search-tabs">
+                    <button class="search-tab active" onclick="showSearchTab('doctors')">Doctors</button>
+                    <button class="search-tab" onclick="showSearchTab('departments')">Departments</button>
+                    <button class="search-tab" onclick="showSearchTab('appointments')">Appointments</button>
+                    <button class="search-tab" onclick="showSearchTab('health')">Health Info</button>
+                </div>
+                
+                <!-- Doctor Search -->
+                <div id="doctors" class="search-content active">
+                    <form class="search-form" onsubmit="searchDoctors(event)">
+                        <div class="form-group">
+                            <label for="doctorName">Doctor Name</label>
+                            <input type="text" id="doctorName" placeholder="Enter doctor's name">
+                        </div>
+                        <div class="form-group">
+                            <label for="doctorSpecialty">Specialty</label>
+                            <select id="doctorSpecialty">
+                                <option value="">All Specialties</option>
+                                <option value="cardiology">Cardiology</option>
+                                <option value="neurology">Neurology</option>
+                                <option value="orthopedics">Orthopedics</option>
+                                <option value="dermatology">Dermatology</option>
+                                <option value="gynecology">Gynecology</option>
+                                <option value="pediatrics">Pediatrics</option>
+                                <option value="general">General Medicine</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="doctorExperience">Experience (Years)</label>
+                            <select id="doctorExperience">
+                                <option value="">Any Experience</option>
+                                <option value="0-5">0-5 years</option>
+                                <option value="5-10">5-10 years</option>
+                                <option value="10-15">10-15 years</option>
+                                <option value="15+">15+ years</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">Search Doctors</button>
+                    </form>
+                </div>
+                
+                <!-- Department Search -->
+                <div id="departments" class="search-content">
+                    <form class="search-form" onsubmit="searchDepartments(event)">
+                        <div class="form-group">
+                            <label for="deptName">Department Name</label>
+                            <input type="text" id="deptName" placeholder="Enter department name">
+                        </div>
+                        <div class="form-group">
+                            <label for="deptServices">Services</label>
+                            <select id="deptServices">
+                                <option value="">All Services</option>
+                                <option value="emergency">Emergency Care</option>
+                                <option value="surgery">Surgery</option>
+                                <option value="diagnostic">Diagnostic</option>
+                                <option value="consultation">Consultation</option>
+                                <option value="rehabilitation">Rehabilitation</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">Search Departments</button>
+                    </form>
+                </div>
+                
+                <!-- Appointment Search -->
+                <div id="appointments" class="search-content">
+                    <form class="search-form" onsubmit="searchAppointments(event)">
+                        <div class="form-group">
+                            <label for="appointmentId">Appointment ID</label>
+                            <input type="text" id="appointmentId" placeholder="Enter appointment ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="patientName">Patient Name</label>
+                            <input type="text" id="patientName" placeholder="Enter patient name">
+                        </div>
+                        <div class="form-group">
+                            <label for="appointmentDate">Appointment Date</label>
+                            <input type="date" id="appointmentDate">
+                        </div>
+                        <button type="submit" class="search-btn">Search Appointments</button>
+                    </form>
+                </div>
+                
+                <!-- Health Information Search -->
+                <div id="health" class="search-content">
+                    <form class="search-form" onsubmit="searchHealthInfo(event)">
+                        <div class="form-group">
+                            <label for="healthTopic">Health Topic</label>
+                            <input type="text" id="healthTopic" placeholder="Enter health topic or symptom">
+                        </div>
+                        <div class="form-group">
+                            <label for="healthCategory">Category</label>
+                            <select id="healthCategory">
+                                <option value="">All Categories</option>
+                                <option value="nutrition">Nutrition</option>
+                                <option value="exercise">Exercise</option>
+                                <option value="mental-health">Mental Health</option>
+                                <option value="preventive-care">Preventive Care</option>
+                                <option value="diseases">Diseases & Conditions</option>
+                                <option value="medications">Medications</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="search-btn">Search Health Info</button>
+        </form>
+                </div>
+            </div>
+            
+            <!-- Search Results -->
+            <div class="search-main">
+                <div class="results-section">
+                    <div class="results-header">
+                        <h3 id="resultsTitle">Search Results</h3>
+                        <div class="results-count" id="resultsCount">0 results found</div>
+                    </div>
+                    
+                    <div class="filter-options" id="filterOptions" style="display: none;">
+                        <button class="filter-btn active" onclick="filterResults('all')">All</button>
+                        <button class="filter-btn" onclick="filterResults('available')">Available</button>
+                        <button class="filter-btn" onclick="filterResults('specialist')">Specialists</button>
+                    </div>
+                    
+                    <div id="searchResults">
+                        <div class="no-results">
+                            <div class="no-results-icon">🔍</div>
+                            <h3>Start Your Search</h3>
+                            <p>Use the search options on the left to find doctors, departments, appointments, or health information.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data for demonstration
+        const doctorsData = [
+            {
+                id: 1,
+                name: "Dr. Sarah Smith",
+                specialty: "Cardiology",
+                experience: 15,
+                department: "Cardiology",
+                availability: "Mon-Fri",
+                rating: 4.8,
+                type: "doctor"
+            },
+            {
+                id: 2,
+                name: "Dr. Michael Johnson",
+                specialty: "Neurology",
+                experience: 12,
+                department: "Neurology",
+                availability: "Mon-Sat",
+                rating: 4.6,
+                type: "doctor"
+            },
+            {
+                id: 3,
+                name: "Dr. Emily Williams",
+                specialty: "Orthopedics",
+                experience: 18,
+                department: "Orthopedics",
+                availability: "Mon-Fri",
+                rating: 4.9,
+                type: "doctor"
+            },
+            // Additional doctors
+            {
+                id: 4,
+                name: "Dr. Priya Mehra",
+                specialty: "Dermatology",
+                experience: 10,
+                department: "Dermatology",
+                availability: "Tue-Sat",
+                rating: 4.7,
+                type: "doctor"
+            },
+            {
+                id: 5,
+                name: "Dr. Rajesh Kumar",
+                specialty: "Pediatrics",
+                experience: 8,
+                department: "Pediatrics",
+                availability: "Mon-Fri",
+                rating: 4.5,
+                type: "doctor"
+            },
+            {
+                id: 6,
+                name: "Dr. Anjali Patel",
+                specialty: "Gynecology",
+                experience: 14,
+                department: "Gynecology",
+                availability: "Mon-Sat",
+                rating: 4.8,
+                type: "doctor"
+            },
+            {
+                id: 7,
+                name: "Dr. David Lee",
+                specialty: "General Medicine",
+                experience: 20,
+                department: "General Medicine",
+                availability: "Mon-Sat",
+                rating: 4.9,
+                type: "doctor"
+            },
+            {
+                id: 8,
+                name: "Dr. Fatima Noor",
+                specialty: "Emergency Medicine",
+                experience: 11,
+                department: "Emergency Medicine",
+                availability: "24/7",
+                rating: 4.6,
+                type: "doctor"
+            }
+        ];
+        
+        const departmentsData = [
+            {
+                id: 1,
+                name: "Cardiology Department",
+                services: ["Emergency Care", "Consultation", "Diagnostic"],
+                head: "Dr. Sarah Smith",
+                location: "Floor 2",
+                type: "department"
+            },
+            {
+                id: 2,
+                name: "Emergency Department",
+                services: ["Emergency Care", "Trauma", "Critical Care"],
+                head: "Dr. Robert Brown",
+                location: "Ground Floor",
+                type: "department"
+            }
+        ];
+        
+        const healthInfoData = [
+            {
+                id: 1,
+                title: "Heart Health Tips",
+                category: "preventive-care",
+                content: "Maintain a healthy heart with regular exercise and balanced diet.",
+                type: "health"
+            },
+            {
+                id: 2,
+                title: "Nutrition Guidelines",
+                category: "nutrition",
+                content: "Essential nutrition tips for maintaining good health.",
+                type: "health"
+            }
+        ];
+        
+        function showSearchTab(tabName) {
+            // Hide all search contents
+            document.querySelectorAll('.search-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.search-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+            
+            // Clear previous results
+            clearResults();
+        }
+        
+        function searchDoctors(event) {
+            event.preventDefault();
+            const name = document.getElementById('doctorName').value.toLowerCase();
+            const specialty = document.getElementById('doctorSpecialty').value;
+            const experience = document.getElementById('doctorExperience').value;
+            
+            const results = doctorsData.filter(doctor => {
+                const nameMatch = !name || doctor.name.toLowerCase().includes(name);
+                const specialtyMatch = !specialty || doctor.specialty.toLowerCase() === specialty;
+                const experienceMatch = !experience || checkExperience(doctor.experience, experience);
+                
+                return nameMatch && specialtyMatch && experienceMatch;
+            });
+            
+            displayResults(results, 'Doctors');
+        }
+        
+        function searchDepartments(event) {
+            event.preventDefault();
+            const name = document.getElementById('deptName').value.toLowerCase();
+            const services = document.getElementById('deptServices').value;
+            
+            const results = departmentsData.filter(dept => {
+                const nameMatch = !name || dept.name.toLowerCase().includes(name);
+                const servicesMatch = !services || dept.services.some(service => 
+                    service.toLowerCase().includes(services.toLowerCase())
+                );
+                
+                return nameMatch && servicesMatch;
+            });
+            
+            displayResults(results, 'Departments');
+        }
+        
+        function searchAppointments(event) {
+            event.preventDefault();
+            const appointmentId = document.getElementById('appointmentId').value;
+            const patientName = document.getElementById('patientName').value;
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            
+            // Get appointments from localStorage
+            const appointments = JSON.parse(localStorage.getItem('hospitalAppointments')) || [];
+            
+            const results = appointments.filter(appointment => {
+                const idMatch = !appointmentId || appointment.appointmentId.includes(appointmentId);
+                const nameMatch = !patientName || 
+                    (appointment.patientInfo.firstName + ' ' + appointment.patientInfo.lastName)
+                    .toLowerCase().includes(patientName.toLowerCase());
+                const dateMatch = !appointmentDate || appointment.appointmentDetails.date === appointmentDate;
+                
+                return idMatch && nameMatch && dateMatch;
+            });
+            
+            displayResults(results, 'Appointments');
+        }
+        
+        function searchHealthInfo(event) {
+            event.preventDefault();
+            const topic = document.getElementById('healthTopic').value.toLowerCase();
+            const category = document.getElementById('healthCategory').value;
+            
+            const results = healthInfoData.filter(info => {
+                const topicMatch = !topic || 
+                    info.title.toLowerCase().includes(topic) || 
+                    info.content.toLowerCase().includes(topic);
+                const categoryMatch = !category || info.category === category;
+                
+                return topicMatch && categoryMatch;
+            });
+            
+            displayResults(results, 'Health Information');
+        }
+        
+        function checkExperience(doctorExp, filterExp) {
+            const [min, max] = filterExp.split('-').map(Number);
+            if (filterExp.includes('+')) {
+                return doctorExp >= min;
+            }
+            return doctorExp >= min && doctorExp <= max;
+        }
+        
+        function displayResults(results, type) {
+            const resultsContainer = document.getElementById('searchResults');
+            const resultsTitle = document.getElementById('resultsTitle');
+            const resultsCount = document.getElementById('resultsCount');
+            const filterOptions = document.getElementById('filterOptions');
+            
+            resultsTitle.textContent = `${type} Search Results`;
+            resultsCount.textContent = `${results.length} results found`;
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3>No Results Found</h3>
+                        <p>Try adjusting your search criteria or browse our quick links above.</p>
+                    </div>
+                `;
+                filterOptions.style.display = 'none';
+                return;
+            }
+            
+            let resultsHTML = '';
+            results.forEach(result => {
+                resultsHTML += createResultCard(result, type);
+            });
+            
+            resultsContainer.innerHTML = resultsHTML;
+            
+            // Show filter options for doctors
+            if (type === 'Doctors') {
+                filterOptions.style.display = 'flex';
+            } else {
+                filterOptions.style.display = 'none';
+            }
+        }
+        
+        function createResultCard(result, type) {
+            switch(type) {
+                case 'Doctors':
+                    return `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h4 class="result-title">${result.name}</h4>
+                                <span class="result-type">Doctor</span>
+                            </div>
+                            <div class="result-details">
+                                <strong>Specialty:</strong> ${result.specialty}<br>
+                                <strong>Department:</strong> ${result.department}<br>
+                                <strong>Experience:</strong> ${result.experience} years<br>
+                                <strong>Availability:</strong> ${result.availability}
+                            </div>
+                            <div class="result-meta">
+                                <span>⭐ ${result.rating}/5.0</span>
+                                <span>📞 Available for consultation</span>
+                            </div>
+                            <div class="result-actions">
+                                <button class="action-btn btn-primary" onclick="bookAppointment('${result.name}')">Book Appointment</button>
+                                <button class="action-btn btn-secondary" onclick="viewProfile('${result.name}')">View Profile</button>
+                            </div>
+                        </div>
+                    `;
+                case 'Departments':
+                    return `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h4 class="result-title">${result.name}</h4>
+                                <span class="result-type">Department</span>
+                            </div>
+                            <div class="result-details">
+                                <strong>Services:</strong> ${result.services.join(', ')}<br>
+                                <strong>Head:</strong> ${result.head}<br>
+                                <strong>Location:</strong> ${result.location}
+                            </div>
+                            <div class="result-actions">
+                                <button class="action-btn btn-primary" onclick="viewDepartment('${result.name}')">View Details</button>
+                                <button class="action-btn btn-secondary" onclick="bookAppointment('${result.name}')">Book Appointment</button>
+                            </div>
+                        </div>
+                    `;
+                case 'Appointments':
+                    return `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h4 class="result-title">Appointment ID: ${result.appointmentId}</h4>
+                                <span class="result-type">Appointment</span>
+                            </div>
+                            <div class="result-details">
+                                <strong>Patient:</strong> ${result.patientInfo.firstName} ${result.patientInfo.lastName}<br>
+                                <strong>Date:</strong> ${result.appointmentDetails.date} at ${result.appointmentDetails.time}<br>
+                                <strong>Doctor:</strong> ${result.appointmentDetails.doctor}<br>
+                                <strong>Type:</strong> ${result.appointmentDetails.type}
+                            </div>
+                            <div class="result-actions">
+                                <button class="action-btn btn-primary" onclick="viewAppointment('${result.appointmentId}')">View Details</button>
+                                <button class="action-btn btn-secondary" onclick="rescheduleAppointment('${result.appointmentId}')">Reschedule</button>
+                            </div>
+                        </div>
+                    `;
+                case 'Health Information':
+                    return `
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h4 class="result-title">${result.title}</h4>
+                                <span class="result-type">Health Info</span>
+                            </div>
+                            <div class="result-details">
+                                ${result.content}
+                            </div>
+                            <div class="result-actions">
+                                <button class="action-btn btn-primary" onclick="readMore('${result.id}')">Read More</button>
+                                <button class="action-btn btn-secondary" onclick="saveArticle('${result.id}')">Save Article</button>
+                            </div>
+                        </div>
+                    `;
+                default:
+                    return '';
+            }
+        }
+        
+        function clearResults() {
+            document.getElementById('searchResults').innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">🔍</div>
+                    <h3>Start Your Search</h3>
+                    <p>Use the search options on the left to find doctors, departments, appointments, or health information.</p>
+                </div>
+            `;
+            document.getElementById('resultsTitle').textContent = 'Search Results';
+            document.getElementById('resultsCount').textContent = '0 results found';
+            document.getElementById('filterOptions').style.display = 'none';
+        }
+        
+        function filterResults(filter) {
+            // Remove active class from all filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Implement filtering logic here
+            console.log('Filtering by:', filter);
+        }
+        
+        // Action functions
+        function bookAppointment(doctorName) {
+            alert(`Booking appointment with ${doctorName}. Redirecting to appointment page...`);
+            // Redirect to appointment page
+        }
+        
+        function viewProfile(doctorName) {
+            alert(`Viewing profile of ${doctorName}`);
+        }
+        
+        function viewDepartment(deptName) {
+            alert(`Viewing details of ${deptName}`);
+        }
+        
+        function viewAppointment(appointmentId) {
+            alert(`Viewing appointment details for ${appointmentId}`);
+        }
+        
+        function rescheduleAppointment(appointmentId) {
+            alert(`Rescheduling appointment ${appointmentId}`);
+        }
+        
+        function readMore(articleId) {
+            alert(`Reading more about article ${articleId}`);
+        }
+        
+        function saveArticle(articleId) {
+            alert(`Saving article ${articleId}`);
+        }
+    </script>
+</body>
+</html>

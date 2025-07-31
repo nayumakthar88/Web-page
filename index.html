@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Service</title>
+    <style>
+        body {
+            background-image: url('f1 bg.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff;
+        }
+
+        .header {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            border-bottom: 2px solid #007BFF;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td a {
+            text-decoration: none;
+            padding: 10px 15px;
+            display: inline-block;
+            color: #007BFF;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: #0c0b0b;
+        }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
+        h2 {
+            font-family: 'Times New Roman', serif;
+        }
+
+        h3 {
+            font-family: 'Courier New', monospace;
+        }
+
+        h4 {
+            font-family: 'Georgia', serif;
+        }
+
+        h5 {
+            font-family: 'Verdana', sans-serif;
+        }
+
+        h6 {
+            font-family: 'Tahoma', sans-serif;
+        }
+
+        td a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+            background-color: rgba(0, 123, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        #logo {
+            position: relative;
+            transition: left 0.5s ease;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-frame {
+            width: 100%;
+            height: calc(100vh - 120px);
+            border: none;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <table border="0" align="center">
+            <tr>
+                <td>
+                    <img id="logo" src="medical.jpg" height="100" width="100" alt="Medical Logo">
+                </td>
+                <td align="center" colspan="7"><h1>MEDICAL SERVICE</h1></td>
+            </tr>
+            <tr>
+                <td><a href="home.html" target="contentFrame" class="home-link">Home</a></td>
+                <td><a href="facilities.html" target="contentFrame" class="facilities-link">Facilities</a></td>
+                <td><a href="book_appointment.html" target="contentFrame" class="book-appointment-link">Book Appointment</a></td>
+                <td><a href="healthtips.html" target="contentFrame" class="health-tips-link">Health Tips</a></td>
+                <td><a href="search.html" target="contentFrame" class="search-link">Search</a></td>
+                <td><a href="contact us .html" target="contentFrame" class="contact-us-link">Contact Us</a></td>
+                <td><a href="user_dashboard.html" target="contentFrame" class="dashboard-link">Dashboard</a></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Content Frame -->
+    <iframe name="contentFrame" src="home.html" class="content-frame"></iframe>
+
+</body>
+</html>

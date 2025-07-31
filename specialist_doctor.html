@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors</title>
+    <style>
+        img {
+            transition: border 0.3s ease-in-out, content 0.3s ease-in-out;
+            border: 2px solid transparent;
+        }
+    </style>
+    <script>
+        function highlightImage(element, newSrc) {
+            element.style.border = "2px solid blue";
+            element.dataset.originalSrc = element.src; // Store original image
+            element.src = newSrc;
+        }
+
+        function resetImage(element) {
+            element.style.border = "2px solid transparent";
+            element.src = element.dataset.originalSrc; // Restore original image
+        }
+    </script>
+</head>
+<body bgcolor="white">
+    <table align="center" border="0" width="75%" cellpadding="5" cellspacing="5">
+        <tr>
+            <td>
+                <img src="john.jpg" height="200" width="200" alt="Dr. John Doe" usemap="#johnMap" onmouseover="highlightImage(this, 'Cardiologist.webp')" onmouseout="resetImage(this)">
+                <map name="johnMap">
+                    <area shape="rect" coords="0,0,200,200" href="john_profile.html" alt="Dr. John Doe">
+                </map>
+            </td>
+            <td align="center">
+                Dr. John Doe <br>
+                Cardiologist <br>
+                Specializes in heart disease prevention, treatment of hypertension, and advanced cardiac care. <br>
+                10+ years of experience in cardiology. <br>
+                Rs.5000 Consultation Fee
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="arithra saha.jpg" height="200" width="200" alt="Dr. Jane Smith" usemap="#janeMap" onmouseover="highlightImage(this, 'Gynecologist.jpeg')" onmouseout="resetImage(this)">
+                <map name="janeMap">
+                    <area shape="rect" coords="0,0,200,200" href="jane_profile.html" alt="Dr. Jane Smith">
+                </map>
+            </td>
+            <td align="center">
+                Dr. Jane Smith <br>
+                Gynecologist <br>
+                Specializes in women’s reproductive health, including prenatal care, menstrual disorders, and menopause management. <br>
+                15+ years of experience in gynecology. <br>
+                Rs.3500 Consultation Fee
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="th.jpg" height="200" width="200" alt="Dr. Emily Brown" usemap="#emilyMap" onmouseover="highlightImage(this, 'Dermatologist.jpeg')" onmouseout="resetImage(this)">
+                <map name="emilyMap">
+                    <area shape="rect" coords="0,0,200,200" href="emily_profile.html" alt="Dr. Emily Brown">
+                </map>
+            </td>
+            <td align="center">
+                Dr. Emily Brown <br>
+                Dermatologist <br>
+                Specializes in treating skin conditions such as acne, eczema, psoriasis, and skin cancer prevention. <br>
+                12+ years of experience in dermatology. <br>
+                Rs.4000 Consultation Fee
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

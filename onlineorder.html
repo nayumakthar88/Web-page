@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Supplies Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .packaging-image {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .packaging-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script>
+        function processOrder(event) {
+            event.preventDefault();
+
+            // Get user input values
+            const name = document.getElementById("name").value.trim();
+            const address = document.getElementById("address").value.trim();
+            const item = document.getElementById("item").value;
+            const packaging = document.querySelector('input[name="packaging"]:checked')?.value;
+
+            // Validate input
+            if (!name || !address || !item || !packaging) {
+                alert("Please fill out all the fields.");
+                return;
+            }
+
+            // Generate order message
+            const orderMessage = `
+                Dear ${name},
+                Thank you for your order! You have selected:
+                - Item: ${item}
+                - Packaging: ${packaging}
+                Your order will be delivered to:
+                ${address}
+            `;
+            alert(orderMessage);
+        }
+
+        // Function to show packaging image
+        function showPackagingImage(packagingType) {
+            const imageContainer = document.getElementById("packagingImageContainer");
+            const packagingImage = document.getElementById("packagingImage");
+
+            // Hide all images first
+            imageContainer.style.display = "none";
+
+            // Show the selected image
+            if (packagingType === "Cardboard Box") {
+                packagingImage.src = "packing.webp"; // Replace with your image path
+                imageContainer.style.display = "block";
+            } else if (packagingType === "Styrofoam-Insulated Container") {
+                packagingImage.src = "Cubed-Box.jpg"; // Replace with your image path
+                imageContainer.style.display = "block";
+            } else if (packagingType === "Plastic Wrap") {
+                packagingImage.src = "th.jpeg"; // Replace with your image path
+                imageContainer.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Medical Supplies Order</h1>
+    <form id="orderForm" onsubmit="processOrder(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+        <label for="item">Select Item:</label>
+        <select id="item" name="item" required>
+            <option value="Medical Mask">Medical Mask</option>
+            <option value="Sterile Bandages">Sterile Bandages</option>
+            <option value="Gloves">Gloves</option>
+            <option value="First Aid Kit">First Aid Kit</option>
+            <option value="Thermometer">Thermometer</option>
+        </select>
+
+        <label>Choose Packaging:</label>
+        <input type="radio" id="cardboard" name="packaging" value="Cardboard Box" required onclick="showPackagingImage('Cardboard Box')">
+        <label for="cardboard">Cardboard Box</label><br>
+        <input type="radio" id="styrofoam" name="packaging" value="Styrofoam-Insulated Container" required onclick="showPackagingImage('Styrofoam-Insulated Container')">
+        <label for="styrofoam">Styrofoam-Insulated Container</label><br>
+        <input type="radio" id="plastic" name="packaging" value="Plastic Wrap" required onclick="showPackagingImage('Plastic Wrap')">
+        <label for="plastic">Plastic Wrap</label>
+
+        <!-- Container for packaging image -->
+        <div id="packagingImageContainer" class="packaging-image">
+            <img id="packagingImage" src="" alt="Packaging Image">
+        </div>
+
+        <button type="submit">Place Order</button>
+    </form>
+</body>
+</html>

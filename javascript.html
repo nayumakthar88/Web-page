@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Medical Service</title>
+    <style>
+        body {
+            background-image: url('f1 bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .form-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px;
+        }
+        
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .form-header h2 {
+            color: #007BFF;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .form-header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #007BFF;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #007BFF, #0056b3);
+            color: white;
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .user-preview {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .user-preview h4 {
+            margin: 0 0 10px 0;
+            color: #007BFF;
+        }
+        
+        .user-preview p {
+            margin: 5px 0;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form-header">
+            <h2>Create Account</h2>
+            <p>Join our medical service platform</p>
+        </div>
+        
+        <form id="createAccountForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                    <div class="error-message" id="firstNameError">First name must be at least 3 characters and contain only letters</div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                    <div class="error-message" id="lastNameError">Last name must be at least 3 characters and contain only letters</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username *</label>
+                <input type="text" id="username" name="username" required>
+                <div class="error-message" id="usernameError">Username must be at least 3 characters</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error-message" id="passwordError">Password must be at least 6 characters</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password *</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <div class="error-message" id="confirmPasswordError">Passwords do not match</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="dateOfBirth">Date of Birth *</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                <div class="error-message" id="dateOfBirthError">Please enter a valid date</div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="mobile">Mobile Number *</label>
+                    <input type="tel" id="mobile" name="mobile" required>
+                    <div class="error-message" id="mobileError">Mobile number must be exactly 10 digits</div>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode *</label>
+                    <input type="text" id="pincode" name="pincode" required>
+                    <div class="error-message" id="pincodeError">Pincode must be exactly 6 digits</div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Create Account</button>
+        </form>
+        
+        <div class="success-message" id="successMessage">
+            Account created successfully! Welcome to our medical service platform.
+        </div>
+        
+        <div class="user-preview" id="userPreview">
+            <h4>Account Preview</h4>
+            <div id="previewDetails"></div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        window.onload = function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                showMessage('You are already logged in as: ' + currentUser.username, 'info');
+            }
+        };
+
+        document.getElementById('createAccountForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+            let isValid = true;
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const dateOfBirth = document.getElementById('dateOfBirth').value;
+            const mobile = document.getElementById('mobile').value.trim();
+            const pincode = document.getElementById('pincode').value.trim();
+            
+            // Validation
+            if (firstName.length < 3 || /\W|\d|_/.test(firstName)) {
+                document.getElementById('firstNameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (lastName.length < 3 || /\W|\d|_/.test(lastName)) {
+                document.getElementById('lastNameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (username.length < 3) {
+                document.getElementById('usernameError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (password.length < 6) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!dateOfBirth) {
+                document.getElementById('dateOfBirthError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (mobile.length !== 10 || isNaN(mobile)) {
+                document.getElementById('mobileError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (pincode.length !== 6 || isNaN(pincode)) {
+                document.getElementById('pincodeError').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+                // Check if username already exists
+                const existingUsers = JSON.parse(localStorage.getItem('medicalServiceUsers')) || [];
+                const userExists = existingUsers.find(user => user.username === username);
+                
+                if (userExists) {
+                    document.getElementById('usernameError').textContent = 'Username already exists. Please choose a different username.';
+                    document.getElementById('usernameError').style.display = 'block';
+                    return;
+                }
+                
+                // Create comprehensive user data
+                const userData = {
+                    firstName,
+                    lastName,
+                    email,
+                    username,
+                    password, // In production, this should be hashed
+                    dateOfBirth,
+                    mobile,
+                    pincode,
+                    registrationDate: new Date().toLocaleString(),
+                    firstLogin: new Date().toLocaleString(),
+                    lastLogin: new Date().toLocaleString(),
+                    loginCount: 1,
+                    sessionId: generateSessionId(),
+                    timestamp: Date.now(),
+                    status: 'active'
+                };
+                
+                // Save to localStorage
+                try {
+                    // Add to users array
+                    existingUsers.push(userData);
+                    localStorage.setItem('medicalServiceUsers', JSON.stringify(existingUsers));
+                    
+                    // Set as current user
+                    localStorage.setItem('currentUser', JSON.stringify(userData));
+                    
+                    // Show success message
+                    document.getElementById('createAccountForm').style.display = 'none';
+                    document.getElementById('successMessage').style.display = 'block';
+                    
+                    // Show user preview
+                    showUserPreview(userData);
+                    
+                    // Redirect to home page after 3 seconds
+                    setTimeout(() => {
+                        window.parent.location.href = 'home.html';
+                    }, 3000);
+                    
+                } catch (error) {
+                    showMessage('Error creating account. Please try again.', 'error');
+                    console.error('Error creating account:', error);
+                }
+            }
+        });
+        
+        function showUserPreview(userData) {
+            const previewDiv = document.getElementById('userPreview');
+            const detailsDiv = document.getElementById('previewDetails');
+            
+            detailsDiv.innerHTML = `
+                <p><strong>Name:</strong> ${userData.firstName} ${userData.lastName}</p>
+                <p><strong>Username:</strong> ${userData.username}</p>
+                <p><strong>Email:</strong> ${userData.email}</p>
+                <p><strong>Mobile:</strong> ${userData.mobile}</p>
+                <p><strong>Registration Date:</strong> ${userData.registrationDate}</p>
+            `;
+            
+            previewDiv.style.display = 'block';
+        }
+        
+        function generateSessionId() {
+            return 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        
+        function showMessage(message, type) {
+            // Create a temporary message element
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = message;
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px;
+                border-radius: 8px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                background-color: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#007BFF'};
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                document.body.removeChild(messageDiv);
+            }, 5000);
+        }
+        
+        // Function to view all registered users (for debugging)
+        function viewAllUsers() {
+            const users = JSON.parse(localStorage.getItem('medicalServiceUsers')) || [];
+            console.log('All registered users:', users);
+            return users;
+        }
+        
+        // Function to clear all user data (for testing)
+        function clearAllUserData() {
+            localStorage.removeItem('medicalServiceUsers');
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('userData');
+            showMessage('All user data cleared', 'success');
+        }
+        
+        // Add these functions to window for debugging
+        window.viewAllUsers = viewAllUsers;
+        window.clearAllUserData = clearAllUserData;
+    </script>
+</body>
+</html>

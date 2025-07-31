@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablets and Syrups</title>
+</head>
+<body bgcolor="white">
+    <h1 align="center">Tablets and Syrups</h1>
+
+    <table align="center" border="0" width="75%" cellpadding="5" cellspacing="5">
+        <tr>
+            <td>
+                <img id="paracetamol-image" src="tablet.jpg" height="150" width="150" alt="Paracetamol Tablet" style="cursor: pointer;">
+            </td>
+            <td align="center">
+                <strong>Paracetamol Tablet</strong> <br>
+                Pain Reliever and Fever Reducer <br>
+                Effective for mild to moderate pain, headaches, and fever. <br>
+                Pack Size: 500mg tablets (10 tablets per pack) <br>
+                Price: Rs.50 per pack
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img id="cough-syrup-image" src="syrup.webp" height="150" width="150" alt="Cough Syrup" style="cursor: pointer;">
+            </td>
+            <td align="center">
+                <strong>Cough Syrup</strong> <br>
+                Relief for Dry and Productive Coughs <br>
+                Contains a blend of expectorants and soothing agents for fast relief. <br>
+                Bottle Size: 100ml <br>
+                Price: Rs.120 per bottle
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img id="multivitamin-image" src="Multivitamin Syrup.jpg" height="150" width="150" alt="Multivitamin Syrup" style="cursor: pointer;">
+            </td>
+            <td align="center">
+                <strong>Multivitamin Syrup</strong> <br>
+                Boosts Immunity and Overall Health <br>
+                Enriched with essential vitamins and minerals for all age groups. <br>
+                Bottle Size: 200ml <br>
+                Price: Rs.250 per bottle
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        const imageEvents = [
+            { id: 'paracetamol-image', images: ['tablet.jpg',  'inner tablet.webp'] },
+            { id: 'cough-syrup-image', images: ['syrup.webp',  'syrup 1.jpg'] },
+            { id: 'multivitamin-image', images: ['Multivitamin Syrup.jpg',  'syrup 2.jpg'] }
+        ];
+
+        imageEvents.forEach(event => {
+            const imgElement = document.getElementById(event.id);
+            imgElement.addEventListener('mousedown', () => changeImage(event.id, event.images[0]));
+            imgElement.addEventListener('mouseup', () => {
+                changeImage(event.id, event.images[1]);
+                setTimeout(() => changeImage(event.id, event.images[2]), 3000);
+            });
+        });
+
+        function changeImage(id, src) {
+            document.getElementById(id).src = src;
+        }
+    </script>
+</body>
+</html>
