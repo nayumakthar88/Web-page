@@ -2,20 +2,6 @@
 
 A professional medical service website with appointment booking, health tips, comprehensive medical services, and **user account management**.
 
-##  Quick Deploy to Vercel
-
-### Option 1: Drag & Drop (Easiest)
-1. Go to [vercel.com](https://vercel.com)
-2. Sign up/Login
-3. Click "New Project"
-4. **Drag and drop your entire project folder**
-5. Click "Deploy" 🎉
-
-### Option 2: GitHub Integration
-1. Upload to GitHub
-2. Connect to Vercel
-3. Auto-deploy on every push
-
 ##  Project Structure
 
 ### Core Pages (15 HTML files)
@@ -91,3 +77,4 @@ A professional medical service website with appointment booking, health tips, co
 - **Mobile-responsive**
 - **Local Storage** - User data persistence
 - **Session Management** - Automatic login state
+
